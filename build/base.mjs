@@ -97,6 +97,29 @@ const base = defineConfig({
           },
         ],
       },
+      {
+        test: /\.(png|jpg|jpeg|gif|webp)$/,
+        type: 'asset',
+      },
+      {
+        test: /\.svg$/,
+        include: [resolve('./src')],
+        use: [
+          {
+            loader: 'svg-sprite-loader',
+            options: {
+              symbolId: 'icon-[name]',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(woff2?|ttf|eot)(\?.*)?$/,
+        type: 'asset/resource',
+        generator: {
+          filename: subDir('fonts/[name].[hash:8][ext]'),
+        },
+      },
       ...getCSSModuleRules(),
     ],
   },
